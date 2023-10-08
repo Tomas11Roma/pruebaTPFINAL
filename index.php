@@ -3,12 +3,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
-        <title>Bienvenido al sistema</title>
+        <title>Pizarra de Anuncios</title>
         <link rel="stylesheet" href="bootstrap.min.css">
     </head>
     <body class="container">
       <div class="jumbotron text-center">
-      <h1>Pizarra de anuncios</h1>
+      <h1>Pizarra de Anuncios</h1>
       </div>    
       <div class="text-center">
         <h3>Login de personal</h3>

@@ -22,11 +22,11 @@ if (isset($_SESSION['usuario'])) {
     </head>
     <body class="container">
       <div class="jumbotron text-center">
-      <h1>Pizarra de Anuncios - Nuevo anuncio</h1>
+      <h1>Pizarra de Anuncios - Modificar anuncio</h1>
       </div>
       <div class="text-center">
-        <h3>Subir nuevo anuncio</h3>
-        <form action="subir.php" method="post">
+        <h3>Modificar anuncio</h3>
+        <form action="modificar2.php" method="post">
             <label for="titulo">Título</label>
             <input name="titulo" class="form-control form-control-lg"><br>
             <label for="titulo">Descripción</label>
@@ -45,7 +45,7 @@ if (isset($_SESSION['usuario'])) {
             </select><br>
             <label for="fecha">Fecha</label>
             <input type="date" name="fecha" class="form-control form-control-lg" value=""><br>
-            <input type="submit" value="Subir anuncio" class="btn btn-primary">
+            <input type="submit" value="Modificar anuncio" class="btn btn-primary">
         </form>
       </div>
     </body>
