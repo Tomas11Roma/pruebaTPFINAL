@@ -12,6 +12,7 @@ if (isset($_SESSION['usuario'])) {
     header('Location: index.php');
 }
 ?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -26,7 +27,7 @@ if (isset($_SESSION['usuario'])) {
       </div>
       <div class="text-center">
         <h3>Anuncios publicados</h3>
-        <form action="mostrar.php" method="post">
+
     
         </form>
       </div>
