@@ -2,6 +2,7 @@
 
 require_once 'clases/RepositorioUsuario.php';
 require_once 'clases/Usuario.php';
+require_once 'clases/RepositorioAnuncios.php';
 
 class ControladorSesion
 {
@@ -11,7 +12,7 @@ class ControladorSesion
      * @param string $nombre_usuario El nombre de usuario
      * @param string $clave          La contraseña del usuario
      *
-     * @return Array El primer valor del array es true o false, según si el
+     * @return array El primer valor del array es true o false, según si el
      *               login fue exitoso o no. El segundo elemento del array es
      *               un mensaje que explica el motivo del éxito o fracaso.
      */
@@ -46,7 +47,7 @@ class ControladorSesion
      * @param string $apellido       El apellido del usuario/a
      * @param string $clave          La contraseña del usuario
      *
-     * @return Array Un array cuyo primer valor es true o false, según si fue
+     * @return array Un array cuyo primer valor es true o false, según si fue
      *               exitosa o no la creación del usuario. El segundo valor del
      *               array retornado es un mensaje explicativo.
      */
@@ -69,7 +70,7 @@ class ControladorSesion
     /**
      * Elimina el usuario. Retorna true si tuvo éxito, false si no.
      *
-     * @params Usuario $usuario El objeto usuario a eliminar.
+     * @param Usuario $usuario El objeto usuario a eliminar.
      *
      * @return boolean true si tuvo éxito, false de lo contrario
      */
@@ -112,6 +113,11 @@ class ControladorSesion
         } else {
             return false;
         }
+    }
+
+    function guardarAnuncio(Anuncio $anuncio) {
+        $ra = new RepositorioAnuncios();
+        $ra->guardar($anuncio);
     }
 
 }
