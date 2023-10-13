@@ -148,10 +148,8 @@ class ControladorSesion
         $_SESSION['mensaje'] = "Vigencia del anuncio actualizada con éxito."; 
     }
     
-    
-
-    function eliminarAnuncio(Anuncio $anuncio)
-    {
-
+    public function eliminarAnuncioPorId($id_anuncio) {
+        $this->repositorioAnuncios->eliminarPorId($id_anuncio);
     }
+    
 }

@@ -94,9 +94,14 @@ class RepositorioAnuncios
             return false;
         }
     }
-
-    // UPDATE anuncios SET vigente = ? WHERE id = ?;   -- vigente puede ser 0 o 1.
-
+    public function eliminarPorId($id_anuncio) {
+        $sql = "DELETE FROM anuncios WHERE id = ?";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bind_param("i", $id_anuncio);
+        $stmt->execute();
+        $stmt->close();
+    }
+    
     // DELETE FROM anuncios WHERE id = ?
 
 }
@@ -109,3 +114,5 @@ class RepositorioAnuncios
 // FROM anuncios a
 // JOIN anuncios_comisiones ac ON a.id = ac.comisiones_id
 // WHERE a.vigente = 1 AND ac.comisiones_id = ?;
+
+  // UPDATE anuncios SET vigente = ? WHERE id = ?;   -- vigente puede ser 0 o 1.
