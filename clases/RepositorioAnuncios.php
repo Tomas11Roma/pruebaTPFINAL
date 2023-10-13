@@ -6,18 +6,26 @@ require_once 'Anuncio.php';
 
 class RepositorioAnuncios
 {
-    public function leer(Anuncio $anuncio) {
-          // SELECT id, titulo, texto, fecha_publicacion, usuarios_id
-        // FROM anuncios
-        // WHERE vigente = 1;
+    public function leer() {
+        $anuncios = [];
+        $sql = "SELECT id, titulo, texto, fecha_publicacion, usuarios_id FROM anuncios WHERE vigente = 1";
+        $result = $this->conexion->query($sql);
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                $anuncio = new Anuncio($row['titulo'], $row['texto'], $row['fecha_publicacion'], $row['usuarios_id'], [], $row['id']);
+                $anuncios[] = $anuncio;
+            }
+        }
+        return $anuncios;
     }
-        
+
         // SELECT a.id, a.titulo, a.texto, a.fecha_publicacion, a.usuarios_id
         // FROM anuncios a
         // JOIN anuncios_comisiones ac ON a.id = ac.comisiones_id
         // WHERE a.vigente = 1 AND ac.comisiones_id = ?;
     
         public function guardar(Anuncio $anuncio) {
+            
             $sql = "INSERT INTO anuncios (titulo, texto, fecha_publicacion, vigente, usuarios_id) ";
             $sql.= " VALUES (?, ?, NOW(), 1, ?)";
             $query = self::$conexion->prepare($sql);
@@ -48,3 +56,7 @@ class RepositorioAnuncios
         // DELETE FROM anuncios WHERE id = ?
         
 }
+
+// SELECT id, titulo, texto, fecha_publicacion, usuarios_id
+        // FROM anuncios
+        // WHERE vigente = 1;

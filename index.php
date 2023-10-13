@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
@@ -13,41 +12,33 @@
         <h1>Pizarra de Anuncios</h1>
     </div>
     <div class="text-center">
-        <h3>Anuncios publicados</h3>
-        <table>
-            <thead>
+    <h3>Anuncios publicados</h3>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Titulo</th>
+                <th>Descripción</th>
+                <th>Fecha de Publicación</th>
+                <th>ID Usuario</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($anuncios as $anuncio): ?>
                 <tr>
-                    <th>ID</th>
-                    <th>Titulo</th>
-                    <th>Descripción</th>
-                    <th>Año</th>
-                    <th>Comision</th>
-                    <th>Vigencia</th>
-                    <th>Id Usuario</th>
-                    <th></th>
-                    <th></th>
+                    <td><?= $anuncio->id ?></td>
+                    <td><?= $anuncio->titulo ?></td>
+                    <td><?= $anuncio->texto ?></td>
+                    <td><?= $anuncio->fecha_publicacion ?></td>
+                    <td><?= $anuncio->usuarios_id ?></td>
                 </tr>
-            </thead>
-        </table>
-    </div><br>
-    <div>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+</div>
         <p><a href="linkLogin.php">Login del personal</a></p>
     </div>
 </body>
 
 </html>
-<!-- 
-<tbody>
-                <?php while ($row = mysqli_fetch_array($query)): ?>
-                    <tr>
-                        <th><?= $row['id'] ?></th>
-                        <th><?= $row['name'] ?></th>
-                        <th><?= $row['lastname'] ?></th>
-                        <th><?= $row['username'] ?></th>
-                        <th><?= $row['password'] ?></th>
-                        <th><?= $row['email'] ?></th>
-                        <th><a href="update.php?id=<?= $row['id'] ?>" class="users-table--edit">Editar</a></th>
-                        <th><a href="delete_user.php?id=<?= $row['id'] ?>" class="users-table--delete" >Eliminar</a></th>
-                    </tr>
-                <?php endwhile; ?>
-            </tbody> -->

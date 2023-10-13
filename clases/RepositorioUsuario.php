@@ -95,7 +95,7 @@ class RepositorioUsuario
     /**
      * Elimina el usuario de la BD. Retorna true si tuvo éxito, false si no.
      *
-     * @params Usuario $usuario El objeto usuario a eliminar de la BD.
+     * @param Usuario $usuario El objeto usuario a eliminar de la BD.
      *
      * @return boolean true si tuvo éxito, false de lo contrario
      */

@@ -3,6 +3,7 @@
 require_once 'clases/RepositorioUsuario.php';
 require_once 'clases/Usuario.php';
 require_once 'clases/RepositorioAnuncios.php';
+require_once 'Anuncio.php';
 
 class ControladorSesion
 {
