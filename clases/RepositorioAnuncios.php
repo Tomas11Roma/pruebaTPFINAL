@@ -6,20 +6,19 @@ require_once 'Anuncio.php';
 
 class RepositorioAnuncios
 {
-    
-        // SELECT id, titulo, texto, fecha_publicacion, usuarios_id
+    public function leer(Anuncio $anuncio) {
+          // SELECT id, titulo, texto, fecha_publicacion, usuarios_id
         // FROM anuncios
         // WHERE vigente = 1;
+    }
         
         // SELECT a.id, a.titulo, a.texto, a.fecha_publicacion, a.usuarios_id
         // FROM anuncios a
         // JOIN anuncios_comisiones ac ON a.id = ac.comisiones_id
         // WHERE a.vigente = 1 AND ac.comisiones_id = ?;
-        
-
-
+    
         public function guardar(Anuncio $anuncio) {
-            $sql = "INSERT INTO anuncios (titulo,texto, fecha_publicacion, vigente, usuarios_id) ";
+            $sql = "INSERT INTO anuncios (titulo, texto, fecha_publicacion, vigente, usuarios_id) ";
             $sql.= " VALUES (?, ?, NOW(), 1, ?)";
             $query = self::$conexion->prepare($sql);
             $titulo = $anuncio->titulo;

@@ -38,7 +38,7 @@ if (isset($_SESSION['usuario'])) {
         <input type="submit" value="Modificar anuncio" class="btn btn-primary">
         </form><br>
 
-        <form action="mostrar_anuncios.php" method="post">
+        <form action="index.php" method="post">
         <input type="submit" value="Mostrar anuncios" class="btn btn-primary">
         </form><br>
       </div>
