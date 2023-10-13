@@ -24,7 +24,7 @@ class ControladorSesion
 
         if ($usuario === false) {
             // Falló el login
-            return [ false, "Error de credenciales" ];
+            return [false, "Error de credenciales"];
         } else {
             // Login correcto, $usuario tiene un objeto de tipo Usuario, cuyos
             // datos obtuvo de la BD.
@@ -59,12 +59,12 @@ class ControladorSesion
         $id = $repo->save($usuario, $clave);
         if ($id === false) {
             // No se pudo guardar
-            return [ false, "Error al crear el usuario" ];
+            return [false, "Error al crear el usuario"];
         } else {
             $usuario->setId($id);
             session_start();
             $_SESSION['usuario'] = serialize($usuario);
-            return [ true, "Usuario creado correctamente" ];
+            return [true, "Usuario creado correctamente"];
         }
     }
 
@@ -116,7 +116,8 @@ class ControladorSesion
         }
     }
 
-    public function obtenerAnuncios($orden = "") {
+    public function obtenerAnuncios($orden = "")
+    {
         $repositorioAnuncios = new RepositorioAnuncios();
         if ($orden === "reciente") {
             return $repositorioAnuncios->leer();
@@ -125,26 +126,28 @@ class ControladorSesion
         }
         return $repositorioAnuncios->leer();
     }
-    
-    
-    
-    public function obtenerAnunciosPorVigencia($vigente) {
+
+    public function obtenerAnunciosPorVigencia($vigencia)
+    {
         $repositorioAnuncios = new RepositorioAnuncios();
-        return $repositorioAnuncios->leerPorVigencia($vigente);
+        return $repositorioAnuncios->leerPorVigencia($vigencia);
     }
-    
-    function guardarAnuncio(Anuncio $anuncio) {
+
+    function guardarAnuncio(Anuncio $anuncio)
+    {
         $ra = new RepositorioAnuncios();
         $ra->guardar($anuncio);
     }
 
 
-    function modificarAnuncio(Anuncio $anuncio) {
+    function modificarAnuncio(Anuncio $anuncio)
+    {
 
     }
 
-    function eliminarAnuncio(Anuncio $anuncio) {
-    
+    function eliminarAnuncio(Anuncio $anuncio)
+    {
+
     }
 
     /**
@@ -178,4 +181,3 @@ class ControladorSesion
     // }
 
 }
-

@@ -66,6 +66,14 @@ $anuncios = $controlador->obtenerAnuncios($orden);
             <?php endforeach; ?>
         </tbody>
     </table>
+</div>
+<div class="text-center">
+    <h3>Filtros:</h3>
+    <form action="index.php" method="post">
+        <input type="submit" name="ordenar_reciente" value="Ordenar por fecha reciente" class="btn btn-secondary">
+        <input type="submit" name="ordenar_antiguo" value="Ordenar por fecha antigua" class="btn btn-secondary">
+    </form>
+    <br>
     <form method="post" action="">
     <label for="vigencia">Filtrar por vigencia:</label>
     <select name="vigencia">
@@ -76,15 +84,6 @@ $anuncios = $controlador->obtenerAnuncios($orden);
     <input type="submit" value="Filtrar">
 </form>
 </div>
-<div class="text-center">
-    <h3>Filtros:</h3>
-    <form action="index.php" method="post">
-        <input type="submit" name="ordenar_reciente" value="Ordenar por fecha reciente" class="btn btn-secondary">
-        <input type="submit" name="ordenar_antiguo" value="Ordenar por fecha antigua" class="btn btn-secondary">
-    </form>
-    <br>
-</div>
-
 </body>
 
 </html>
