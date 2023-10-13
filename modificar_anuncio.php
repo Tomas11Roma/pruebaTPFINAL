@@ -23,7 +23,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["actualizar_vigencia"])
     $controlador->actualizarVigenciaAnuncio($id_anuncio, $vigencia);
     // Redirigir o mostrar un mensaje de éxito
 }
-
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,9 +35,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["actualizar_vigencia"])
     <body class="container">
       <div class="jumbotron text-center">
       <h1>Pizarra de Anuncios - Modificar anuncio</h1>
+      <div>
+      <a href="central_anuncios.php">Volver a la página anterior</a><br>
+<a href="index.php">Ir al índice de anuncios</a>
+      </div>
       </div>
       <div class="text-center">
         <h3>Modificar anuncio</h3>
+        <?php
+        if (isset($_SESSION['mensaje'])) {
+            echo "<p class='alert alert-primary text-center'>" . $_SESSION['mensaje'] . "</p>";
+            unset($_SESSION['mensaje']);
+        }
+        ?>
         <form action="modificar_anuncio.php" method="post">
     <label for="id_anuncio">Selecciona el ID del anuncio:</label>
     <select name="id_anuncio">

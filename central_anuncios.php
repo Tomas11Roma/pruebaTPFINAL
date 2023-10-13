@@ -23,6 +23,7 @@ if (isset($_SESSION['usuario'])) {
     <body class="container">
       <div class="jumbotron text-center">
       <h1>Pizarra de Anuncios - Central de Anuncios</h1>
+      <a href="home.php">Volver a la página anterior</a><br>
       </div>
       <div class="text-center">
         <h3>Elige la siguiente acción:</h3>
