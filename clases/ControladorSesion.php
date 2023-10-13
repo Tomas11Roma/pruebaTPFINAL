@@ -116,21 +116,29 @@ class ControladorSesion
         }
     }
 
+    private $repositorioAnuncios; 
+    public function __construct()
+    {
+        // ... (otros códigos)
+        $this->repositorioAnuncios = new RepositorioAnuncios(); // <-- Agrega esta línea
+    }
+
     public function obtenerAnuncios($orden = "")
     {
-        $repositorioAnuncios = new RepositorioAnuncios();
+        // Elimina esta línea:
+        // $repositorioAnuncios = new RepositorioAnuncios();
+    
         if ($orden === "reciente") {
-            return $repositorioAnuncios->leer();
+            return $this->repositorioAnuncios->leer();
         } elseif ($orden === "antiguo") {
-            return $repositorioAnuncios->leerOrdenadoPorFechaAntigua();
+            return $this->repositorioAnuncios->leerOrdenadoPorFechaAntigua();
         }
-        return $repositorioAnuncios->leer();
+        return $this->repositorioAnuncios->leer();
     }
 
     public function obtenerAnunciosPorVigencia($vigencia)
     {
-        $repositorioAnuncios = new RepositorioAnuncios();
-        return $repositorioAnuncios->leerPorVigencia($vigencia);
+        return $this->repositorioAnuncios->leerPorVigencia($vigencia);
     }
 
     function guardarAnuncio(Anuncio $anuncio)
@@ -140,7 +148,7 @@ class ControladorSesion
     }
 
 
-    public function actualizarVigenciaAnuncio($id_anuncio, $vigencia) {
+   public function actualizarVigenciaAnuncio($id_anuncio, $vigencia) {
         $this->repositorioAnuncios->actualizarVigencia($id_anuncio, $vigencia);
     }
     
