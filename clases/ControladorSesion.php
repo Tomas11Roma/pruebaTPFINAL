@@ -140,10 +140,10 @@ class ControladorSesion
     }
 
 
-    function modificarAnuncio(Anuncio $anuncio)
-    {
-
+    public function actualizarVigenciaAnuncio($id_anuncio, $vigencia) {
+        $this->repositorioAnuncios->actualizarVigencia($id_anuncio, $vigencia);
     }
+    
 
     function eliminarAnuncio(Anuncio $anuncio)
     {

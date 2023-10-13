@@ -11,6 +11,19 @@ if (isset($_SESSION['usuario'])) {
     // Si no, redirigimos al login
     header('Location: index.php');
 }
+
+$controlador = new ControladorSesion();
+
+// Obtener todos los anuncios para mostrarlos en un dropdown
+$anuncios = $controlador->obtenerAnuncios();
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["actualizar_vigencia"])) {
+    $id_anuncio = $_POST["id_anuncio"];
+    $vigencia = $_POST["vigencia"];
+    $controlador->actualizarVigenciaAnuncio($id_anuncio, $vigencia);
+    // Redirigir o mostrar un mensaje de éxito
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -26,27 +39,22 @@ if (isset($_SESSION['usuario'])) {
       </div>
       <div class="text-center">
         <h3>Modificar anuncio</h3>
-        <form action="modificar2.php" method="post">
-            <label for="titulo">Título</label>
-            <input name="titulo" class="form-control form-control-lg"><br>
-            <label for="titulo">Descripción</label>
-            <input name="descripcion" class="form-control form-control-lg"><br>
-            <label for="año">Año</label>
-            <select name="años" class="form-control form-control-lg">
-               <option value="1">1</option>
-               <option value="2">2</option>
-               <option value="3">3</option>
-            </select><br>   
-            <label for="comision">Comisión</label>
-            <select name="comisiones" class="form-control form-control-lg">
-               <option value="1">1</option>
-               <option value="2">2</option>
-               <option value="3">3</option>
-            </select><br>
-            <label for="fecha">Fecha</label>
-            <input type="date" name="fecha" class="form-control form-control-lg" value=""><br>
-            <input type="submit" value="Modificar anuncio" class="btn btn-primary">
-        </form>
+        <form action="modificar_anuncio.php" method="post">
+    <label for="id_anuncio">Selecciona el ID del anuncio:</label>
+    <select name="id_anuncio">
+        <?php foreach ($anuncios as $anuncio) { ?>
+            <option value="<?php echo $anuncio->getId(); ?>"><?php echo $anuncio->getId(); ?></option>
+        <?php } ?>
+    </select>
+    <br>
+    <label for="vigencia">Vigencia:</label>
+    <select name="vigencia">
+        <option value="1">Vigente</option>
+        <option value="0">No vigente</option>
+    </select>
+    <br>
+    <input type="submit" name="actualizar_vigencia" value="Actualizar Vigencia">
+</form>
       </div>
     </body>
 </html>

@@ -60,9 +60,16 @@ class RepositorioAnuncios
         return $anuncios;
     }
 
+    public function actualizarVigencia($id_anuncio, $vigencia) {
+        $sql = "UPDATE anuncios SET vigente = ? WHERE id = ?";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bind_param("ii", $vigencia, $id_anuncio);
+        $stmt->execute();
+        $stmt->close();
+    }
+    
     public function guardar(Anuncio $anuncio)
     {
-
         $sql = "INSERT INTO anuncios (titulo, texto, fecha_publicacion, vigente, usuarios_id) ";
         $sql .= " VALUES (?, ?, NOW(), 1, ?)";
         $query = self::$conexion->prepare($sql);
