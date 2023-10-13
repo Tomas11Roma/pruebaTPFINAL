@@ -116,9 +116,21 @@ class ControladorSesion
         }
     }
 
-    public function obtenerAnuncios() {
+    public function obtenerAnuncios($orden = "") {
         $repositorioAnuncios = new RepositorioAnuncios();
+        if ($orden === "reciente") {
+            return $repositorioAnuncios->leer();
+        } elseif ($orden === "antiguo") {
+            return $repositorioAnuncios->leerOrdenadoPorFechaAntigua();
+        }
         return $repositorioAnuncios->leer();
+    }
+    
+    
+    
+    public function obtenerAnunciosPorVigencia($vigente) {
+        $repositorioAnuncios = new RepositorioAnuncios();
+        return $repositorioAnuncios->leerPorVigencia($vigente);
     }
     
     function guardarAnuncio(Anuncio $anuncio) {

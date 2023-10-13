@@ -6,6 +6,25 @@ require_once 'clases/ControladorSesion.php';
 $controlador = new ControladorSesion();
 $anuncios = $controlador->obtenerAnuncios();
 
+$anuncios = [];
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["vigencia"])) {
+    $vigenciaSeleccionada = $_POST["vigencia"];
+    if ($vigenciaSeleccionada === "all") {
+        $anuncios = $controlador->obtenerAnuncios();
+    } else {
+        $anuncios = $controlador->obtenerAnunciosPorVigencia($vigenciaSeleccionada);
+    }
+} else {
+    $anuncios = $controlador->obtenerAnuncios();
+}
+
+$orden = "";
+if (isset($_POST["ordenar_reciente"])) {
+    $orden = "reciente";
+} elseif (isset($_POST["ordenar_antiguo"])) {
+    $orden = "antiguo";
+}
+$anuncios = $controlador->obtenerAnuncios($orden);
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +66,25 @@ $anuncios = $controlador->obtenerAnuncios();
             <?php endforeach; ?>
         </tbody>
     </table>
+    <form method="post" action="">
+    <label for="vigencia">Filtrar por vigencia:</label>
+    <select name="vigencia">
+        <option value="all">Todos los anuncios</option>
+        <option value="1">Vigente</option>
+        <option value="0">No Vigente</option>
+    </select>
+    <input type="submit" value="Filtrar">
+</form>
 </div>
+<div class="text-center">
+    <h3>Filtros:</h3>
+    <form action="index.php" method="post">
+        <input type="submit" name="ordenar_reciente" value="Ordenar por fecha reciente" class="btn btn-secondary">
+        <input type="submit" name="ordenar_antiguo" value="Ordenar por fecha antigua" class="btn btn-secondary">
+    </form>
+    <br>
+</div>
+
 </body>
 
 </html>
