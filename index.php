@@ -20,6 +20,7 @@ $anuncios = $controlador->obtenerAnuncios();
 <body class="container">
     <div class="jumbotron text-center">
         <h1>Pizarra de Anuncios</h1>
+        <p><a href="linkLogin.php">Login Personal</a></p>
     </div>
     <div class="text-center">
     <h3>Anuncios publicados</h3>
@@ -46,11 +47,7 @@ $anuncios = $controlador->obtenerAnuncios();
             <?php endforeach; ?>
         </tbody>
     </table>
-    
 </div>
-</div>
-        <p><a href="linkLogin.php">Login del personal</a></p>
-    </div>
 </body>
 
 </html>
