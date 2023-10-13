@@ -1,3 +1,13 @@
+<?php
+require_once 'Anuncio.php';
+require_once 'clases/RepositorioAnuncios.php';
+require_once 'clases/ControladorSesion.php';
+
+$controlador = new ControladorSesion();
+$anuncios = $controlador->obtenerAnuncios();
+
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +24,7 @@
     <div class="text-center">
     <h3>Anuncios publicados</h3>
     <table border="1">
+        
         <thead>
             <tr>
                 <th>ID</th>
@@ -35,6 +46,7 @@
             <?php endforeach; ?>
         </tbody>
     </table>
+    
 </div>
 </div>
         <p><a href="linkLogin.php">Login del personal</a></p>

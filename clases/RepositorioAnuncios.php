@@ -6,6 +6,17 @@ require_once 'Anuncio.php';
 
 class RepositorioAnuncios
 {
+    
+    private $conexion;
+
+    public function __construct() {
+        $credenciales = credenciales();
+        $this->conexion = new mysqli($credenciales['servidor'], $credenciales['usuario'], $credenciales['clave'], $credenciales['base_de_datos']);
+        if ($this->conexion->connect_error) {
+            die("Conexión fallida: " . $this->conexion->connect_error);
+        }
+    }
+      
     public function leer() {
         $anuncios = [];
         $sql = "SELECT id, titulo, texto, fecha_publicacion, usuarios_id FROM anuncios WHERE vigente = 1";

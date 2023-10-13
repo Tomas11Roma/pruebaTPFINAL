@@ -116,9 +116,23 @@ class ControladorSesion
         }
     }
 
+    public function obtenerAnuncios() {
+        $repositorioAnuncios = new RepositorioAnuncios();
+        return $repositorioAnuncios->leer();
+    }
+    
     function guardarAnuncio(Anuncio $anuncio) {
         $ra = new RepositorioAnuncios();
         $ra->guardar($anuncio);
+    }
+
+
+    function modificarAnuncio(Anuncio $anuncio) {
+
+    }
+
+    function eliminarAnuncio(Anuncio $anuncio) {
+    
     }
 
     /**
