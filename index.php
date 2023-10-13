@@ -64,9 +64,8 @@ if (isset($_POST["ordenar_reciente"])) {
             <?php endforeach; ?>
         </tbody>
     </table>
-</div>
+</div><br>
 <div class="text-center">
-    <h3>Filtros:</h3>
     <form action="index.php" method="post">
         <input type="submit" name="ordenar_reciente" value="Ordenar por fecha reciente" class="btn btn-secondary">
         <input type="submit" name="ordenar_antiguo" value="Ordenar por fecha antigua" class="btn btn-secondary">
