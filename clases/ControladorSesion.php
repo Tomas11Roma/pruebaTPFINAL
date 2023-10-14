@@ -3,6 +3,7 @@
 require_once 'clases/RepositorioUsuario.php';
 require_once 'clases/Usuario.php';
 require_once 'clases/RepositorioAnuncios.php';
+require_once 'clases/RepositorioComisiones.php';
 require_once 'Anuncio.php';
 
 class ControladorSesion
@@ -116,9 +117,11 @@ class ControladorSesion
         }
     }
     private $repositorioAnuncios; 
+    private $repositorioComisiones;
     public function __construct()
     {
-        $this->repositorioAnuncios = new RepositorioAnuncios(); 
+        $this->repositorioAnuncios = new RepositorioAnuncios();
+        $this->repositorioComisiones = new RepositorioComisiones();  
     }
 
     public function obtenerAnuncios($orden = "")
@@ -136,12 +139,9 @@ class ControladorSesion
         return $this->repositorioAnuncios->leerPorVigencia($vigencia);
     }
 
-    function guardarAnuncio(Anuncio $anuncio)
-    {
-        $ra = new RepositorioAnuncios();
-        $ra->guardar($anuncio);
+    public function guardarAnuncio(Anuncio $anuncio) {
+        $this->repositorioAnuncios->guardar($anuncio);
     }
-
 
     public function actualizarVigenciaAnuncio($id_anuncio, $vigencia) {
         $this->repositorioAnuncios->actualizarVigencia($id_anuncio, $vigencia);
@@ -152,4 +152,13 @@ class ControladorSesion
         $this->repositorioAnuncios->eliminarPorId($id_anuncio);
     }
     
+    // private $repositorioComisiones; 
+    // public function __construct()
+    // {
+    //     $this->repositorioComisiones = new RepositorioComisiones(); 
+    // }
+
+    public function obtenerComisiones() {
+        return $this->repositorioComisiones->obtenerTodas();
+    }
 }

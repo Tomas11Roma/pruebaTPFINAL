@@ -68,23 +68,28 @@ class RepositorioAnuncios
         $stmt->close();
     }
     
-    public function guardar(Anuncio $anuncio)
-    {
+    public function guardar(Anuncio $anuncio) {
         $sql = "INSERT INTO anuncios (titulo, texto, fecha_publicacion, vigente, usuarios_id) ";
         $sql .= " VALUES (?, ?, NOW(), 1, ?)";
-        $query = self::$conexion->prepare($sql);
-        $titulo = $anuncio->titulo;
-        $texto = $anuncio->texto;
-        $id_usuario = $anuncio->id_usuario;
+        $query = $this->conexion->prepare($sql);
+        
+        // Obtener los valores del objeto Anuncio
+        $titulo = $anuncio->getTitulo();
+        $texto = $anuncio->getTexto();
+        $id_usuario = $anuncio->getUsuariosId();
+        
         $query->bind_param("ssi", $titulo, $texto, $id_usuario);
+        
         if ($query->execute()) {
-            $id = self::$conexion->insert_id;
+            $id = $this->conexion->insert_id;
             $anuncio->setId($id);
             $query->close();
-            foreach ($anuncio->comisiones as $unaComision) {
+            
+            // Insertar las comisiones asociadas al anuncio
+            foreach ($anuncio->getComisiones() as $unaComision) {
                 $sql = "INSERT INTO anuncios_comisiones (anuncios_id, comisiones_id) ";
                 $sql .= "VALUES (?, ?)";
-                $query = self::$conexion->prepare($sql);
+                $query = $this->conexion->prepare($sql);
                 $query->bind_param("ii", $id, $unaComision);
                 $query->execute();
                 $query->close();
@@ -94,6 +99,7 @@ class RepositorioAnuncios
             return false;
         }
     }
+    
     public function eliminarPorId($id_anuncio) {
         $sql = "DELETE FROM anuncios WHERE id = ?";
         $stmt = $this->conexion->prepare($sql);
@@ -101,9 +107,6 @@ class RepositorioAnuncios
         $stmt->execute();
         $stmt->close();
     }
-    
-    // DELETE FROM anuncios WHERE id = ?
-
 }
 
 // SELECT id, titulo, texto, fecha_publicacion, usuarios_id
@@ -116,3 +119,32 @@ class RepositorioAnuncios
 // WHERE a.vigente = 1 AND ac.comisiones_id = ?;
 
   // UPDATE anuncios SET vigente = ? WHERE id = ?;   -- vigente puede ser 0 o 1.
+      
+    // DELETE FROM anuncios WHERE id = ?
+
+    // public function guardar(Anuncio $anuncio)
+    // {
+    //     $sql = "INSERT INTO anuncios (titulo, texto, fecha_publicacion, vigente, usuarios_id) ";
+    //     $sql .= " VALUES (?, ?, NOW(), 1, ?)";
+    //     $query = self::$conexion->prepare($sql);
+    //     $titulo = $anuncio->titulo;
+    //     $texto = $anuncio->texto;
+    //     $id_usuario = $anuncio->id_usuario;
+    //     $query->bind_param("ssi", $titulo, $texto, $id_usuario);
+    //     if ($query->execute()) {
+    //         $id = self::$conexion->insert_id;
+    //         $anuncio->setId($id);
+    //         $query->close();
+    //         foreach ($anuncio->comisiones as $unaComision) {
+    //             $sql = "INSERT INTO anuncios_comisiones (anuncios_id, comisiones_id) ";
+    //             $sql .= "VALUES (?, ?)";
+    //             $query = self::$conexion->prepare($sql);
+    //             $query->bind_param("ii", $id, $unaComision);
+    //             $query->execute();
+    //             $query->close();
+    //         }
+    //         return true;
+    //     } else {
+    //         return false;
+    //     }
+    // }
