@@ -69,37 +69,41 @@ class RepositorioAnuncios
     }
     
     public function guardar(Anuncio $anuncio)
-    {
-        // Paso 1: Insertar el anuncio en la tabla `anuncios`
-        $sql = "INSERT INTO anuncios (titulo, texto, fecha_publicacion, vigente, usuarios_id) VALUES (?, ?, NOW(), 1, ?)";
-        $query = self::$conexion->prepare($sql);
-        $titulo = $anuncio->getTitulo();
-        $texto = $anuncio->getTexto();
-        $usuario_id = $anuncio->getUsuariosId();
-        $query->bind_param("ssi", $titulo, $texto, $usuario_id);
-    
-        if ($query->execute()) {
-            // Paso 2: Obtener el ID del anuncio insertado
-            $anuncio_id = self::$conexion->insert_id;
-            $query->close();
-    
-            // Paso 3: Insertar la relación en la tabla intermedia
-            $comision_id = $anuncio->getComisionId(); // Asegúrate de tener este método en la clase Anuncio
-            $sql = "INSERT INTO tabla_intermedia (anuncios_id, comisiones_id) VALUES (?, ?)";
-            $query = self::$conexion->prepare($sql);
+{
+    // Paso 1: Insertar el anuncio en la tabla `anuncios`
+    $sql = "INSERT INTO anuncios (titulo, texto, fecha_publicacion, vigente, usuarios_id) VALUES (?, ?, NOW(), 1, ?)";
+    $query = $this->conexion->prepare($sql);
+    $titulo = $anuncio->getTitulo();
+    $texto = $anuncio->getTexto();
+    $usuario_id = $anuncio->getUsuariosId();
+    $query->bind_param("ssi", $titulo, $texto, $usuario_id);
+
+    if ($query->execute()) {
+        // Paso 2: Obtener el ID del anuncio insertado
+        $anuncio_id = $this->conexion->insert_id;
+        $query->close();
+
+        // Paso 3: Insertar la relación en la tabla intermedia
+        $comisiones = $anuncio->getComisiones();
+        $sql = "INSERT INTO `anuncios.comisiones` (anuncios_id, comisiones_id) VALUES (?, ?)";
+        $query = $this->conexion->prepare($sql);
+        foreach ($comisiones as $comision_id) {
             $query->bind_param("ii", $anuncio_id, $comision_id);
-            if ($query->execute()) {
-                $query->close();
-                return true;
-            } else {
+            if (!$query->execute()) {
                 // Manejar error al insertar en la tabla intermedia
+                $query->close();
                 return false;
             }
-        } else {
-            // Manejar error al insertar el anuncio
-            return false;
         }
+        $query->close();
+        return true;
+    } else {
+        // Manejar error al insertar el anuncio
+        return false;
     }
+}
+
+    
     
     public function eliminarPorId($id_anuncio) {
         $sql = "DELETE FROM anuncios WHERE id = ?";

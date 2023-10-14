@@ -17,10 +17,10 @@ $comisiones = $controlador->obtenerComisiones();
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["subir_anuncio"])) {
     $titulo = $_POST["titulo"];
     $texto = $_POST["texto"];
-    $id_usuario = $_SESSION["usuario"]; // Asumiendo que el ID del usuario está en la sesión
-    $comisiones = $_POST["comision"]; // Asumiendo que las comisiones se envían como un array
+    $usuario_id = $_POST['usuario_id']; // Asumiendo que el ID del usuario está en la sesión
+    $comision_id = $_POST["comision"]; // Asumiendo que las comisiones se envían como un array
 
-    $anuncio = new Anuncio($titulo, $texto, null, $id_usuario, [$comisiones]);
+    $anuncio = new Anuncio($titulo, $texto, null, $usuario_id, [$comision_id]);
     $controlador->guardarAnuncio($anuncio);
     $_SESSION['mensaje'] = "Anuncio subido con éxito.";
     header("Location: subir_anuncio.php");
@@ -68,6 +68,8 @@ if (isset($_SESSION['mensaje'])) {
         }
         ?>
     </select>
+    <label for="usuario_id">ID del Usuario:</label>
+<input type="text" name="usuario_id" id="usuario_id" required>
     <input type="submit" name="subir_anuncio" value="Subir Anuncio">
 </form>
     </div>

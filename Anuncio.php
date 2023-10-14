@@ -9,7 +9,6 @@ class Anuncio
     public $vigente = true;
     public $usuarios_id;
     public $comision_id;
-    
     public $comisiones; // Añadido para almacenar las comisiones
 
     public function __construct(

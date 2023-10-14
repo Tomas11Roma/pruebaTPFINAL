@@ -151,13 +151,6 @@ class ControladorSesion
     public function eliminarAnuncioPorId($id_anuncio) {
         $this->repositorioAnuncios->eliminarPorId($id_anuncio);
     }
-    
-    // private $repositorioComisiones; 
-    // public function __construct()
-    // {
-    //     $this->repositorioComisiones = new RepositorioComisiones(); 
-    // }
-
     public function obtenerComisiones() {
         return $this->repositorioComisiones->obtenerTodas();
     }
