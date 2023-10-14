@@ -4,7 +4,7 @@ require_once 'clases/RepositorioUsuario.php';
 require_once 'clases/Usuario.php';
 require_once 'clases/RepositorioAnuncios.php';
 require_once 'clases/RepositorioComisiones.php';
-require_once 'Anuncio.php';
+require_once 'clases/Anuncio.php';
 
 class ControladorSesion
 {

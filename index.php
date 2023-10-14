@@ -1,5 +1,5 @@
 <?php
-require_once 'Anuncio.php';
+require_once 'clases/Anuncio.php';
 require_once 'clases/RepositorioAnuncios.php';
 require_once 'clases/ControladorSesion.php';
 
