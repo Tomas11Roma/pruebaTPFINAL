@@ -8,6 +8,8 @@ class Anuncio
     public $fecha_publicacion;
     public $vigente = true;
     public $usuarios_id;
+    public $comision_id;
+    
     public $comisiones; // Añadido para almacenar las comisiones
 
     public function __construct(
@@ -56,5 +58,9 @@ class Anuncio
 
     public function getComisiones() {
         return $this->comisiones;
+    }
+
+    public function getComisionId() {
+        return $this->comision_id;
     }
 }

@@ -68,34 +68,35 @@ class RepositorioAnuncios
         $stmt->close();
     }
     
-    public function guardar(Anuncio $anuncio) {
-        $sql = "INSERT INTO anuncios (titulo, texto, fecha_publicacion, vigente, usuarios_id, comisiones_id) ";
-    $sql .= " VALUES (?, ?, NOW(), 1, ?, ?)";
-        $query = $this->conexion->prepare($sql);
-        
-        // Obtener los valores del objeto Anuncio
+    public function guardar(Anuncio $anuncio)
+    {
+        // Paso 1: Insertar el anuncio en la tabla `anuncios`
+        $sql = "INSERT INTO anuncios (titulo, texto, fecha_publicacion, vigente, usuarios_id) VALUES (?, ?, NOW(), 1, ?)";
+        $query = self::$conexion->prepare($sql);
         $titulo = $anuncio->getTitulo();
         $texto = $anuncio->getTexto();
-        $id_usuario = $anuncio->getUsuariosId();
-        
-        $query->bind_param("ssi", $titulo, $texto, $id_usuario);
-        
+        $usuario_id = $anuncio->getUsuariosId();
+        $query->bind_param("ssi", $titulo, $texto, $usuario_id);
+    
         if ($query->execute()) {
-            $id = $this->conexion->insert_id;
-            $anuncio->setId($id);
+            // Paso 2: Obtener el ID del anuncio insertado
+            $anuncio_id = self::$conexion->insert_id;
             $query->close();
-            
-            // Insertar las comisiones asociadas al anuncio
-            foreach ($anuncio->getComisiones() as $unaComision) {
-                $sql = "INSERT INTO anuncios_comisiones (anuncios_id, comisiones_id) ";
-                $sql .= "VALUES (?, ?)";
-                $query = $this->conexion->prepare($sql);
-                $query->bind_param("ii", $id, $unaComision);
-                $query->execute();
+    
+            // Paso 3: Insertar la relación en la tabla intermedia
+            $comision_id = $anuncio->getComisionId(); // Asegúrate de tener este método en la clase Anuncio
+            $sql = "INSERT INTO tabla_intermedia (anuncios_id, comisiones_id) VALUES (?, ?)";
+            $query = self::$conexion->prepare($sql);
+            $query->bind_param("ii", $anuncio_id, $comision_id);
+            if ($query->execute()) {
                 $query->close();
+                return true;
+            } else {
+                // Manejar error al insertar en la tabla intermedia
+                return false;
             }
-            return true;
         } else {
+            // Manejar error al insertar el anuncio
             return false;
         }
     }
