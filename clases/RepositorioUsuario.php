@@ -146,4 +146,14 @@ class RepositorioUsuario
         return $query->execute();
     }
 
+    public function obtenerTodosLosUsuariosId() {
+        $usuarios_id = [];
+        $sql = "SELECT id FROM usuarios";
+        $resultado = self::$conexion->query($sql);
+        while ($fila = $resultado->fetch_assoc()) {
+            $usuarios_id[] = $fila['id'];
+        }
+        return $usuarios_id;
+    }
+
 }

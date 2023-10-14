@@ -13,6 +13,7 @@ if (isset($_SESSION['usuario'])) {
 }
 $controlador = new ControladorSesion();
 $comisiones = $controlador->obtenerComisiones();
+$usuarios_id = $controlador->obtenerTodosLosUsuariosId();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["subir_anuncio"])) {
     $titulo = $_POST["titulo"];
@@ -54,22 +55,24 @@ if (isset($_SESSION['mensaje'])) {
 }
 ?>
         <form action="subir_anuncio.php" method="post">
-    <label for="titulo">Título:</label>
-    <input type="text" name="titulo" required>
-    <br>
-    <label for="texto">Descripción:</label>
-    <textarea name="texto" required></textarea>
-    <br>
-    <label for="comision">Comisión:</label>
+        <input name="titulo" class="form-control form-control-lg" placeholder="Título" required><br>
+        <input name="texto" class="form-control form-control-lg" placeholder="Descripción" required><br>
+        <label for="usuario_id">ID del Usuario:</label>
+<select name="usuario_id" id="usuario_id" required>
+    <?php
+    foreach ($usuarios_id as $id) {
+        echo "<option value='" . $id . "'>" . $id . "</option>";
+    }
+    ?>
+</select>
+    <label for="comision">Comisión y Año:</label>
     <select name="comision">
         <?php
         foreach ($comisiones as $comision) {
             echo "<option value='" . $comision["id"] . "'>" . $comision["id"] . "</option>";
         }
         ?>
-    </select>
-    <label for="usuario_id">ID del Usuario:</label>
-<input type="text" name="usuario_id" id="usuario_id" required>
+    </select><br>
     <input type="submit" name="subir_anuncio" value="Subir Anuncio">
 </form>
     </div>

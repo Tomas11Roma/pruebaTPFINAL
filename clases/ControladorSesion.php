@@ -118,10 +118,13 @@ class ControladorSesion
     }
     private $repositorioAnuncios; 
     private $repositorioComisiones;
+
+    private $repositorioUsuario;
     public function __construct()
     {
         $this->repositorioAnuncios = new RepositorioAnuncios();
-        $this->repositorioComisiones = new RepositorioComisiones();  
+        $this->repositorioComisiones = new RepositorioComisiones(); 
+        $this->repositorioUsuario = new RepositorioUsuario(); 
     }
 
     public function obtenerAnuncios($orden = "")
@@ -153,5 +156,9 @@ class ControladorSesion
     }
     public function obtenerComisiones() {
         return $this->repositorioComisiones->obtenerTodas();
+    }
+
+    public function obtenerTodosLosUsuariosId() {
+        return $this->repositorioUsuario->obtenerTodosLosUsuariosId();
     }
 }
