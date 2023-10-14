@@ -9,17 +9,17 @@ class Anuncio
     public $vigente = true;
     public $usuarios_id;
     public $comision_id;
-    public $comisiones; // Añadido para almacenar las comisiones
+    // public $comisiones; // Añadido para almacenar las comisiones
 
     public function __construct(
-        $titulo, $texto, $fecha_publicacion, $usuarios_id, Array $comisiones, $id = null
+        $titulo, $texto, $fecha_publicacion, $usuarios_id, $comision_id, $id = null
     ) {
         $this->id = $id;
         $this->titulo = $titulo;
         $this->texto = $texto;
         $this->fecha_publicacion = $fecha_publicacion;
         $this->usuarios_id = $usuarios_id;
-        $this->comisiones = $comisiones; // Añadido para inicializar las comisiones
+        $this->comision_id = $comision_id; // Añadido para inicializar las comisiones
     }
 
     public function setVigencia($vigencia)
@@ -55,11 +55,11 @@ class Anuncio
         return $this->usuarios_id;
     }
 
-    public function getComisiones() {
-        return $this->comisiones;
-    }
+    // public function getComisiones() {
+    //     return $this->comisiones;
+    // }
 
     public function getComisionId() {
-        return $this->comision_id;
-    }
+         return $this->comision_id;
+     }
 }

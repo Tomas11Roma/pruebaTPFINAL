@@ -84,7 +84,7 @@ class RepositorioAnuncios
         $query->close();
 
         // Paso 3: Insertar la relación en la tabla intermedia
-        $comisiones = $anuncio->getComisiones();
+        $comisiones = $anuncio->getComisionId();
         foreach ($comisiones as $comision_id) {
             $sql = "INSERT INTO `anuncios.comisiones` (anuncios_id, comisiones_id) VALUES (?, ?)";
             $query = $this->conexion->prepare($sql);
