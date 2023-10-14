@@ -9,6 +9,7 @@
     <body class="container">
       <div class="jumbotron text-center">
       <h1>Pizarra de Anuncios</h1>
+      <a href="index.php">Volver a la página anterior</a><br>
       </div>    
       <div class="text-center">
         <h3>Login de personal</h3>
