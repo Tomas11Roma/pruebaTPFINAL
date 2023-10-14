@@ -68,10 +68,6 @@ if (isset($_SESSION['mensaje'])) {
         }
         ?>
     </select>
-    <br>
-    <label for="anio">Año:</label>
-    <input type="number" name="anio" required>
-    <br>
     <input type="submit" name="subir_anuncio" value="Subir Anuncio">
 </form>
     </div>

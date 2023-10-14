@@ -69,8 +69,8 @@ class RepositorioAnuncios
     }
     
     public function guardar(Anuncio $anuncio) {
-        $sql = "INSERT INTO anuncios (titulo, texto, fecha_publicacion, vigente, usuarios_id) ";
-        $sql .= " VALUES (?, ?, NOW(), 1, ?)";
+        $sql = "INSERT INTO anuncios (titulo, texto, fecha_publicacion, vigente, usuarios_id, comisiones_id) ";
+    $sql .= " VALUES (?, ?, NOW(), 1, ?, ?)";
         $query = $this->conexion->prepare($sql);
         
         // Obtener los valores del objeto Anuncio

@@ -20,7 +20,7 @@ class RepositorioComisiones
 
     public function obtenerTodas() {
         $comisiones = [];
-        $sql = "SELECT * FROM comisiones";
+        $sql = "SELECT id FROM comisiones";
         $resultado = $this->conexion->query($sql);
         while ($fila = $resultado->fetch_assoc()) {
             $comisiones[] = $fila;
