@@ -18,9 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["subir_anuncio"])) {
     $titulo = $_POST["titulo"];
     $texto = $_POST["texto"];
     $id_usuario = $_SESSION["usuario_id"]; // Asumiendo que el ID del usuario está en la sesión
-    $comisiones = $_POST["comisiones"]; // Asumiendo que las comisiones se envían como un array
+    $comisiones = $_POST["comision_id"]; // Asumiendo que las comisiones se envían como un array
 
-    $anuncio = new Anuncio($titulo, $texto, null, $id_usuario, $comisiones);
+    $anuncio = new Anuncio($titulo, $texto, null, $usuario_id, [$comision_id]);
     $controlador->guardarAnuncio($anuncio);
     $_SESSION['mensaje'] = "Anuncio subido con éxito.";
     header("Location: subir_anuncio.php");
@@ -64,7 +64,7 @@ if (isset($_SESSION['mensaje'])) {
     <select name="comision">
         <?php
         foreach ($comisiones as $comision) {
-            echo "<option value='" . $comision["id"] . "'>" . $comision["nombre"] . "</option>";
+            echo "<option value='" . $comision["id"] . "'>" . $comision["id"] . "</option>";
         }
         ?>
     </select>
