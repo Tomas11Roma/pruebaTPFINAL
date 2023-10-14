@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["subir_anuncio"])) {
 
     $anuncio = new Anuncio($titulo, $texto, null, $usuario_id, [$comision_id]);
     $controlador->guardarAnuncio($anuncio);
-    $_SESSION['mensaje'] = "Anuncio subido con éxito.";
+    $_SESSION['mensaje'] = "Anuncio subido con éxito." . $comision_id;
     header("Location: subir_anuncio.php");
     exit();
 }
