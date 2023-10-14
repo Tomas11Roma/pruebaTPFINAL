@@ -85,23 +85,24 @@ class RepositorioAnuncios
 
         // Paso 3: Insertar la relación en la tabla intermedia
         $comisiones = $anuncio->getComisiones();
-        $sql = "INSERT INTO `anuncios.comisiones` (anuncios_id, comisiones_id) VALUES (?, ?)";
-        $query = $this->conexion->prepare($sql);
         foreach ($comisiones as $comision_id) {
+            $sql = "INSERT INTO `anuncios.comisiones` (anuncios_id, comisiones_id) VALUES (?, ?)";
+            $query = $this->conexion->prepare($sql);
             $query->bind_param("ii", $anuncio_id, $comision_id);
             if (!$query->execute()) {
                 // Manejar error al insertar en la tabla intermedia
                 $query->close();
                 return false;
             }
+            $query->close();
         }
-        $query->close();
         return true;
     } else {
         // Manejar error al insertar el anuncio
         return false;
     }
 }
+
 
     
     

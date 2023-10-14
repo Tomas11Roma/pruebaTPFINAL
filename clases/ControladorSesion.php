@@ -118,7 +118,7 @@ class ControladorSesion
     }
     private $repositorioAnuncios; 
     private $repositorioComisiones;
-
+     
     private $repositorioUsuario;
     public function __construct()
     {
