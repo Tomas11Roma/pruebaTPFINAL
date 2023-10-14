@@ -88,7 +88,7 @@ class RepositorioAnuncios
         foreach ($comisiones as $comision_id) {
             $sql = "INSERT INTO `anuncios.comisiones` (anuncios_id, comisiones_id) VALUES (?, ?)";
             $query = $this->conexion->prepare($sql);
-            $query->bind_param("ii", $anuncio_id, $comision_id);
+            $query->bind_param("is", $anuncio_id, $comision_id);
             if (!$query->execute()) {
                 // Manejar error al insertar en la tabla intermedia
                 $query->close();
