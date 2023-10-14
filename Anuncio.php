@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class Anuncio
 {
@@ -8,12 +8,15 @@ class Anuncio
     public $fecha_publicacion;
     public $vigente = true;
     public $usuarios_id;
-    
-    // public $comision_id;
     public $comisiones; // Añadido para almacenar las comisiones
 
     public function __construct(
-        $titulo, $texto, $fecha_publicacion, $usuarios_id, Array $comisiones, $id = null
+        $titulo,
+        $texto,
+        $fecha_publicacion,
+        $usuarios_id,
+        array $comisiones,
+        $id = null
     ) {
         $this->id = $id;
         $this->titulo = $titulo;
@@ -25,42 +28,51 @@ class Anuncio
 
     public function setVigencia($vigencia)
     {
-        $this->vigente = $vigencia;        
+        $this->vigente = $vigencia;
     }
 
-    public function setId($id) {
+    public function setId($id)
+    {
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+    {
         return $this->id;
     }
-      // Métodos getter añadidos
-      public function getTitulo() {
+    public function getTitulo()
+    {
         return $this->titulo;
     }
 
-    public function getTexto() {
+    public function getTexto()
+    {
         return $this->texto;
     }
 
-    public function getFechaPublicacion() {
+    public function getFechaPublicacion()
+    {
         return $this->fecha_publicacion;
     }
 
-    public function getVigente() {
+    public function getVigente()
+    {
         return $this->vigente;
     }
 
-    public function getUsuariosId() {
+    public function getUsuariosId()
+    {
         return $this->usuarios_id;
     }
 
-    public function getComisiones() {
+    public function getComisiones()
+    {
         return $this->comisiones;
     }
 
-    // public function getComisionId() {
-    //     return $this->comision_id;
-    // }
+    public function addComision($comision_id)
+    {
+        $this->comisiones[] = $comision_id;
+    }
+
 }

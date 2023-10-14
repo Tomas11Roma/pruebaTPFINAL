@@ -27,6 +27,7 @@ if (isset($_POST["ordenar_reciente"])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
@@ -40,47 +41,64 @@ if (isset($_POST["ordenar_reciente"])) {
         <p><a href="linkLogin.php">Login Personal</a></p>
     </div>
     <div class="text-center">
-    <h3>Anuncios publicados</h3>
-    <table border="1">
-        
-        <thead>
-            <tr>
-                <th>ID</th>
-                <th>Titulo</th>
-                <th>Descripción</th>
-                <th>Fecha de Publicación</th>
-                <th>ID Usuario</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($anuncios as $anuncio): ?>
+        <h3>Anuncios publicados</h3>
+        <table border="1">
+            <thead>
                 <tr>
-                    <td><?= $anuncio->id ?></td>
-                    <td><?= $anuncio->titulo ?></td>
-                    <td><?= $anuncio->texto ?></td>
-                    <td><?= $anuncio->fecha_publicacion ?></td>
-                    <td><?= $anuncio->usuarios_id ?></td>
+                    <th>ID Anuncio</th>
+                    <th>Titulo</th>
+                    <th>Descripción</th>
+                    <th>Fecha de Publicación</th>
+                    <th>ID Personal</th>
+                    <th>ID Comisión</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
-</div><br>
-<div class="text-center">
-    <form action="index.php" method="post">
-        <input type="submit" name="ordenar_reciente" value="Ordenar por fecha reciente" class="btn btn-secondary">
-        <input type="submit" name="ordenar_antiguo" value="Ordenar por fecha antigua" class="btn btn-secondary">
-    </form>
-    <br>
-    <form method="post" action="">
-    <label for="vigencia">Filtrar por vigencia:</label>
-    <select name="vigencia">
-        <option value="all">Todos los anuncios</option>
-        <option value="1">Vigente</option>
-        <option value="0">No Vigente</option>
-    </select>
-    <input type="submit" value="Filtrar">
-</form>
-</div>
+            </thead>
+            <tbody>
+                <?php foreach ($anuncios as $anuncio): ?>
+                    <tr>
+                        <td>
+                            <?= $anuncio->id ?>
+                        </td>
+                        <td>
+                            <?= $anuncio->titulo ?>
+                        </td>
+                        <td>
+                            <?= $anuncio->texto ?>
+                        </td>
+                        <td>
+                            <?= $anuncio->fecha_publicacion ?>
+                        </td>
+                        <td>
+                            <?= $anuncio->usuarios_id ?>
+                        </td>
+                        <td>
+                            <?php
+                            // Mostrar todos los comisiones_id asociados al anuncio
+                            echo implode(", ", $anuncio->getComisiones());
+                            ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+
+    </div><br>
+    <div class="text-center">
+        <form action="index.php" method="post">
+            <input type="submit" name="ordenar_reciente" value="Ordenar por fecha reciente" class="btn btn-secondary">
+            <input type="submit" name="ordenar_antiguo" value="Ordenar por fecha antigua" class="btn btn-secondary">
+        </form>
+        <br>
+        <form method="post" action="">
+            <label for="vigencia">Filtrar por vigencia:</label>
+            <select name="vigencia">
+                <option value="all">Todos los anuncios</option>
+                <option value="1">Vigente</option>
+                <option value="0">No Vigente</option>
+            </select>
+            <input type="submit" value="Filtrar">
+        </form>
+    </div>
 </body>
 
 </html>

@@ -26,21 +26,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["actualizar_vigencia"])
 ?>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width">
-        <title>Pizarra de Anuncios</title>
-        <link rel="stylesheet" href="bootstrap.min.css">
-    </head>
-    <body class="container">
-      <div class="jumbotron text-center">
-      <h1>Pizarra de Anuncios - Modificar anuncio</h1>
-      <div>
-      <a href="central_anuncios.php">Volver a la página anterior</a><br>
-<a href="index.php">Ir al índice de anuncios</a>
-      </div>
-      </div>
-      <div class="text-center">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Pizarra de Anuncios</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+</head>
+
+<body class="container">
+    <div class="jumbotron text-center">
+        <h1>Pizarra de Anuncios - Modificar anuncio</h1>
+        <div>
+            <a href="central_anuncios.php">Volver a la página anterior</a><br>
+            <a href="index.php">Ir al índice de anuncios</a>
+        </div>
+    </div>
+    <div class="text-center">
         <h3>Modificar anuncio</h3>
         <?php
         if (isset($_SESSION['mensaje'])) {
@@ -49,21 +51,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["actualizar_vigencia"])
         }
         ?>
         <form action="modificar_anuncio.php" method="post">
-    <label for="id_anuncio">Selecciona el ID del anuncio:</label>
-    <select name="id_anuncio">
-        <?php foreach ($anuncios as $anuncio) { ?>
-            <option value="<?php echo $anuncio->getId(); ?>"><?php echo $anuncio->getId(); ?></option>
-        <?php } ?>
-    </select>
-    <br>
-    <label for="vigencia">Vigencia:</label>
-    <select name="vigencia">
-        <option value="1">Vigente</option>
-        <option value="0">No vigente</option>
-    </select>
-    <br>
-    <input type="submit" name="actualizar_vigencia" value="Actualizar Vigencia">
-</form>
-      </div>
-    </body>
+            <label for="id_anuncio">Selecciona el ID del anuncio:</label>
+            <select name="id_anuncio">
+                <?php foreach ($anuncios as $anuncio) { ?>
+                    <option value="<?php echo $anuncio->getId(); ?>">
+                        <?php echo $anuncio->getId(); ?>
+                    </option>
+                <?php } ?>
+            </select>
+            <br>
+            <label for="vigencia">Vigencia:</label>
+            <select name="vigencia">
+                <option value="1">Vigente</option>
+                <option value="0">No vigente</option>
+            </select>
+            <br>
+            <input type="submit" name="actualizar_vigencia" value="Actualizar Vigencia">
+        </form>
+    </div>
+</body>
+
 </html>

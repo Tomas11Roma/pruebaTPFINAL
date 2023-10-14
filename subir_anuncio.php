@@ -18,12 +18,12 @@ $usuarios_id = $controlador->obtenerTodosLosUsuariosId();
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["subir_anuncio"])) {
     $titulo = $_POST["titulo"];
     $texto = $_POST["texto"];
-    $usuario_id = $_POST['usuario_id']; // Asumiendo que el ID del usuario está en la sesión
-    $comision_id = $_POST["comision"]; // Asumiendo que las comisiones se envían como un array
+    $usuario_id = $_POST['usuario_id'];
+    $comision_id = $_POST["comision"];
 
     $anuncio = new Anuncio($titulo, $texto, null, $usuario_id, [$comision_id]);
     $controlador->guardarAnuncio($anuncio);
-    $_SESSION['mensaje'] = "Anuncio subido con éxito." . $comision_id;
+    $_SESSION['mensaje'] = "Anuncio subido con éxito.";
     header("Location: subir_anuncio.php");
     exit();
 }
@@ -49,40 +49,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["subir_anuncio"])) {
     <div class="text-center">
         <h3>Subir nuevo anuncio</h3>
         <?php
-if (isset($_SESSION['mensaje'])) {
-    echo "<p class='mensaje-exito'>" . $_SESSION['mensaje'] . "</p>";
-    unset($_SESSION['mensaje']); // Elimina el mensaje de la sesión después de mostrarlo
-}
-?>
-        <form action="subir_anuncio.php" method="post">
-        <input name="titulo" class="form-control form-control-lg" placeholder="Título" required><br>
-        <input name="texto" class="form-control form-control-lg" placeholder="Descripción" required><br>
-        <label for="usuario_id">ID del Usuario:</label>
-<select name="usuario_id" id="usuario_id" required>
-    <?php
-    foreach ($usuarios_id as $id) {
-        echo "<option value='" . $id . "'>" . $id . "</option>";
-    }
-    ?>
-</select>
-    <label for="comision">Comisión y Año:</label>
-    <select name="comision">
-        <?php
-        foreach ($comisiones as $comision) {
-            echo "<option value='" . $comision["id"] . "'>" . $comision["id"] . "</option>";
+        if (isset($_SESSION['mensaje'])) {
+            echo "<p class='mensaje-exito'>" . $_SESSION['mensaje'] . "</p>";
+            unset($_SESSION['mensaje']); // Elimina el mensaje de la sesión después de mostrarlo
         }
         ?>
-    </select><br>
-    <input type="submit" name="subir_anuncio" value="Subir Anuncio">
-</form>
+        <form action="subir_anuncio.php" method="post">
+            <input name="titulo" class="form-control form-control-lg" placeholder="Título" required><br>
+            <input name="texto" class="form-control form-control-lg" placeholder="Descripción" required><br>
+            <label for="usuario_id">ID del Usuario:</label>
+            <select name="usuario_id" id="usuario_id" required>
+                <?php
+                foreach ($usuarios_id as $id) {
+                    echo "<option value='" . $id . "'>" . $id . "</option>";
+                }
+                ?>
+            </select>
+            <label for="comision">Comisión y Año:</label>
+            <select name="comision">
+                <?php
+                foreach ($comisiones as $comision) {
+                    echo "<option value='" . $comision["id"] . "'>" . $comision["id"] . "</option>";
+                }
+                ?>
+            </select><br>
+            <input type="submit" name="subir_anuncio" value="Subir Anuncio">
+        </form>
     </div>
 </body>
-</html>
 
-<!-- <form action="subir_anuncio.php" method="post">
-            <input name="titulo" class="form-control form-control-lg" placeholder="Título" required><br>
-            <input name="descripcion" class="form-control form-control-lg" placeholder="Descripción" required><br>
-            <input name="anio" type="number" class="form-control form-control-lg" placeholder="Año" required><br>
-            <input name="comision" type="number" class="form-control form-control-lg" placeholder="Comisión" required><br>
-            <input type="submit" name="subir_anuncio" value="Subir Anuncio" class="btn btn-primary">
-        </form> -->
+</html>

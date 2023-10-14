@@ -116,15 +116,15 @@ class ControladorSesion
             return false;
         }
     }
-    private $repositorioAnuncios; 
+    private $repositorioAnuncios;
     private $repositorioComisiones;
-     
+
     private $repositorioUsuario;
     public function __construct()
     {
         $this->repositorioAnuncios = new RepositorioAnuncios();
-        $this->repositorioComisiones = new RepositorioComisiones(); 
-        $this->repositorioUsuario = new RepositorioUsuario(); 
+        $this->repositorioComisiones = new RepositorioComisiones();
+        $this->repositorioUsuario = new RepositorioUsuario();
     }
 
     public function obtenerAnuncios($orden = "")
@@ -142,23 +142,28 @@ class ControladorSesion
         return $this->repositorioAnuncios->leerPorVigencia($vigencia);
     }
 
-    public function guardarAnuncio(Anuncio $anuncio) {
+    public function guardarAnuncio(Anuncio $anuncio)
+    {
         $this->repositorioAnuncios->guardar($anuncio);
     }
 
-    public function actualizarVigenciaAnuncio($id_anuncio, $vigencia) {
+    public function actualizarVigenciaAnuncio($id_anuncio, $vigencia)
+    {
         $this->repositorioAnuncios->actualizarVigencia($id_anuncio, $vigencia);
-        $_SESSION['mensaje'] = "Vigencia del anuncio actualizada con éxito."; 
+        $_SESSION['mensaje'] = "Vigencia del anuncio actualizada con éxito.";
     }
-    
-    public function eliminarAnuncioPorId($id_anuncio) {
+
+    public function eliminarAnuncioPorId($id_anuncio)
+    {
         $this->repositorioAnuncios->eliminarPorId($id_anuncio);
     }
-    public function obtenerComisiones() {
+    public function obtenerComisiones()
+    {
         return $this->repositorioComisiones->obtenerTodas();
     }
 
-    public function obtenerTodosLosUsuariosId() {
+    public function obtenerTodosLosUsuariosId()
+    {
         return $this->repositorioUsuario->obtenerTodosLosUsuariosId();
     }
 }
