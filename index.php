@@ -33,6 +33,8 @@ if (isset($_POST["ordenar_reciente"])) {
     <meta name="viewport" content="width=device-width">
     <title>Pizarra de Anuncios</title>
     <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 </head>
 
 <body class="container">
@@ -99,6 +101,8 @@ if (isset($_POST["ordenar_reciente"])) {
             <input type="submit" value="Filtrar">
         </form>
     </div>
+    <script src="scripts/scripts.js"></script>
+
 </body>
 
 </html>

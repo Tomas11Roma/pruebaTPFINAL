@@ -14,7 +14,7 @@
         <a href="index.php">Volver a la página anterior</a><br>
     </div>
     <div class="text-center">
-        <h3>Login de personal</h3>
+        <h3>Login Personal</h3>
         <?php
         if (isset($_GET['mensaje'])) {
             echo '<div id="mensaje" class="alert alert-primary text-center">
