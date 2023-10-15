@@ -15,3 +15,13 @@ titulo.addEventListener("click", () => {
         isEnlarged = false;
     }
 });
+
+// Evento de que cada vez que el usuario cambie el filtro de vigencia, recibirá una notificación informándole del cambio
+document.addEventListener('DOMContentLoaded', function() {
+    const vigenciaSelect = document.querySelector('select[name="vigencia"]');
+    
+    vigenciaSelect.addEventListener('change', function() {
+        let selectedOption = this.options[this.selectedIndex].text;
+        alert(`Has cambiado el filtro a: ${selectedOption}`);
+    });
+});

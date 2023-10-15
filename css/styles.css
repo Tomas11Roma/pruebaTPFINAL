@@ -56,3 +56,35 @@ h3 {
 h3:hover {
     background-color: #D5D8DC;
 }
+
+/* Estilos para los botones y el select */
+.btn, select {
+    margin: 5px 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007BFF;
+    color: white;
+    font-size: 1em;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.btn:hover, select:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para el label del filtro de vigencia */
+label {
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+/* Estilo para el botón de filtrar */
+input[type="submit"] {
+    background-color: #28a745;
+}
+
+input[type="submit"]:hover {
+    background-color: #218838;
+}
