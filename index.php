@@ -4,6 +4,8 @@ require_once 'clases/RepositorioAnuncios.php';
 require_once 'clases/ControladorSesion.php';
 
 $controlador = new ControladorSesion();
+$totalAnuncios = $controlador->obtenerTotalAnuncios();
+
 
 // Verifica si se ha enviado un filtro de vigencia
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["vigencia"])) {
@@ -80,7 +82,9 @@ if (isset($_POST["ordenar_reciente"])) {
                 <?php endforeach; ?>
             </tbody>
         </table>
-
+        <p>Total de anuncios publicados:
+            <?= $totalAnuncios ?>
+        </p>
     </div><br>
     <div class="text-center">
         <form action="index.php" method="post">

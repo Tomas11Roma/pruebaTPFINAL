@@ -133,4 +133,15 @@ class RepositorioAnuncios
         $stmt->execute();
         $stmt->close();
     }
+
+    public function obtenerTotalAnuncios() {
+        $sql = "SELECT COUNT(*) as total FROM anuncios";
+        $result = $this->conexion->query($sql);
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            return $row['total'];
+        }
+        return 0;
+    }
+    
 }
