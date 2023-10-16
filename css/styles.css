@@ -1,4 +1,3 @@
-/* Reset de algunos estilos por defecto de los navegadores */
 body, h1, h2, h3, p {
     margin: 0;
     padding: 0;
@@ -10,7 +9,7 @@ body {
     padding: 20px;
 }
 
-/* Estilo para la tabla anuncios publicados */
+/* Estilo para la tabla "Anuncios Publicados" */
 table {
     width: 100%;
     border-collapse: collapse;

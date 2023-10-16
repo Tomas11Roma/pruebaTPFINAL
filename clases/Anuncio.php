@@ -6,6 +6,9 @@ class Anuncio
     public $titulo;
     public $texto;
     public $fecha_publicacion;
+    public $carrera;
+    public $anio;
+    public $comision;
     public $vigente = true;
     public $usuarios_id;
     public $comisiones; // Añadido para almacenar las comisiones

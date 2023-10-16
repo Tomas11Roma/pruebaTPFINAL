@@ -5,7 +5,7 @@ require_once 'clases/ControladorSesion.php';
 
 $controlador = new ControladorSesion();
 
-// Verificar si se ha enviado un filtro de vigencia
+// Verifica si se ha enviado un filtro de vigencia
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["vigencia"])) {
     $vigenciaSeleccionada = $_POST["vigencia"];
     if ($vigenciaSeleccionada === "all") {
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["vigencia"])) {
     $anuncios = $controlador->obtenerAnuncios();
 }
 
-// Verificar si se ha solicitado un orden específico
+// Verifica si se ha solicitado un orden específico
 if (isset($_POST["ordenar_reciente"])) {
     $anuncios = $controlador->obtenerAnuncios("reciente");
 } elseif (isset($_POST["ordenar_antiguo"])) {
@@ -47,20 +47,17 @@ if (isset($_POST["ordenar_reciente"])) {
         <table border="1">
             <thead>
                 <tr>
-                    <th>ID Anuncio</th>
                     <th>Titulo</th>
                     <th>Descripción</th>
                     <th>Fecha de Publicación</th>
-                    <th>ID Personal</th>
-                    <th>ID Comisión</th>
+                    <th>Carrera</th>
+                    <th>Año</th>
+                    <th>Comisión</th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($anuncios as $anuncio): ?>
                     <tr>
-                        <td>
-                            <?= $anuncio->id ?>
-                        </td>
                         <td>
                             <?= $anuncio->titulo ?>
                         </td>
@@ -71,13 +68,13 @@ if (isset($_POST["ordenar_reciente"])) {
                             <?= $anuncio->fecha_publicacion ?>
                         </td>
                         <td>
-                            <?= $anuncio->usuarios_id ?>
+                            <?= $anuncio->carrera ?>
                         </td>
                         <td>
-                            <?php
-                            // Mostrar todos los comisiones_id asociados al anuncio
-                            echo implode(", ", $anuncio->getComisiones());
-                            ?>
+                            <?= $anuncio->anio ?>
+                        </td>
+                        <td>
+                            <?= $anuncio->comision ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
