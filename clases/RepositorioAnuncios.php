@@ -19,35 +19,39 @@ class RepositorioAnuncios
     public function leer()
     {
         $anuncios = [];
-        $sql = "SELECT a.id, a.titulo, a.texto, a.fecha_publicacion, a.usuarios_id, ac.comisiones_id 
+        $sql = "SELECT a.id, a.titulo, a.texto, a.fecha_publicacion, a.usuarios_id, c.carrera, c.anio, c.comision 
             FROM anuncios a 
             JOIN `anuncios.comisiones` ac ON a.id=ac.anuncios_id 
             JOIN comisiones c ON ac.comisiones_id = c.id 
-            ORDER BY a.fecha_publicacion DESC";
+            ORDER BY fecha_publicacion DESC";
         $result = $this->conexion->query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $anuncio = new Anuncio($row['titulo'], $row['texto'], $row['fecha_publicacion'], $row['usuarios_id'], [$row['comisiones_id']], $row['id']);
+                $anuncio = new Anuncio($row['titulo'], $row['texto'], $row['fecha_publicacion'], $row['usuarios_id'], [], $row['id']);
+                $anuncio->carrera = $row['carrera'];
+                $anuncio->anio = $row['anio'];
+                $anuncio->comision = $row['comision'];
                 $anuncios[] = $anuncio;
             }
         }
         return $anuncios;
     }
 
-
     public function leerOrdenadoPorFechaAntigua()
     {
         $anuncios = [];
-        $sql = "SELECT a.id, a.titulo, a.texto, a.fecha_publicacion, a.usuarios_id, GROUP_CONCAT(ac.comisiones_id) as comisiones_ids 
-            FROM anuncios a 
-            LEFT JOIN `anuncios.comisiones` ac ON a.id = ac.anuncios_id 
-            GROUP BY a.id 
-            ORDER BY a.fecha_publicacion ASC";
+        $sql = "SELECT a.id, a.titulo, a.texto, a.fecha_publicacion, a.usuarios_id, c.carrera, c.anio, c.comision 
+                FROM anuncios a 
+                JOIN `anuncios.comisiones` ac ON a.id=ac.anuncios_id 
+                JOIN comisiones c ON ac.comisiones_id = c.id 
+                ORDER BY a.fecha_publicacion ASC";
         $result = $this->conexion->query($sql);
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $comisiones_ids = explode(',', $row['comisiones_ids']);
-                $anuncio = new Anuncio($row['titulo'], $row['texto'], $row['fecha_publicacion'], $row['usuarios_id'], $comisiones_ids, $row['id']);
+                $anuncio = new Anuncio($row['titulo'], $row['texto'], $row['fecha_publicacion'], $row['usuarios_id'], [], $row['id']);
+                $anuncio->carrera = $row['carrera'];
+                $anuncio->anio = $row['anio'];
+                $anuncio->comision = $row['comision'];
                 $anuncios[] = $anuncio;
             }
         }
@@ -57,19 +61,22 @@ class RepositorioAnuncios
     public function leerPorVigencia($vigente)
     {
         $anuncios = [];
-        $sql = "SELECT a.id, a.titulo, a.texto, a.fecha_publicacion, a.usuarios_id, GROUP_CONCAT(ac.comisiones_id) as comisiones_ids 
-            FROM anuncios a 
-            LEFT JOIN `anuncios.comisiones` ac ON a.id = ac.anuncios_id 
-            WHERE a.vigente = ? 
-            GROUP BY a.id";
+        $sql = "SELECT a.id, a.titulo, a.texto, a.fecha_publicacion, a.usuarios_id, c.carrera, c.anio, c.comision 
+                FROM anuncios a 
+                JOIN `anuncios.comisiones` ac ON a.id=ac.anuncios_id 
+                JOIN comisiones c ON ac.comisiones_id = c.id 
+                WHERE a.vigente = ? 
+                ORDER BY a.fecha_publicacion DESC";
         $stmt = $this->conexion->prepare($sql);
         $stmt->bind_param("i", $vigente);
         $stmt->execute();
         $result = $stmt->get_result();
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $comisiones_ids = explode(',', $row['comisiones_ids']);
-                $anuncio = new Anuncio($row['titulo'], $row['texto'], $row['fecha_publicacion'], $row['usuarios_id'], $comisiones_ids, $row['id']);
+                $anuncio = new Anuncio($row['titulo'], $row['texto'], $row['fecha_publicacion'], $row['usuarios_id'], [], $row['id']);
+                $anuncio->carrera = $row['carrera'];
+                $anuncio->anio = $row['anio'];
+                $anuncio->comision = $row['comision'];
                 $anuncios[] = $anuncio;
             }
         }
@@ -87,7 +94,7 @@ class RepositorioAnuncios
 
     public function guardar(Anuncio $anuncio)
     {
-        // Paso 1: Insertar el anuncio en la tabla `anuncios`
+        // Paso 1: Inserta el anuncio en la tabla "anuncios"
         $sql = "INSERT INTO anuncios (titulo, texto, fecha_publicacion, vigente, usuarios_id) VALUES (?, ?, NOW(), 1, ?)";
         $query = $this->conexion->prepare($sql);
         $titulo = $anuncio->getTitulo();
@@ -96,11 +103,11 @@ class RepositorioAnuncios
         $query->bind_param("ssi", $titulo, $texto, $usuario_id);
 
         if ($query->execute()) {
-            // Paso 2: Obtener el ID del anuncio insertado
+            // Paso 2: Obtiene el ID del anuncio insertado
             $anuncio_id = $this->conexion->insert_id;
             $query->close();
 
-            // Paso 3: Insertar la relación en la tabla intermedia
+            // Paso 3: Inserta la relación en la tabla intermedia
             $comisiones = $anuncio->getComisiones();
             foreach ($comisiones as $comision_id) {
                 $sql = "INSERT INTO `anuncios.comisiones` (anuncios_id, comisiones_id) VALUES (?, ?)";
