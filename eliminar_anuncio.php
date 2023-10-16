@@ -14,7 +14,7 @@ if (isset($_SESSION['usuario'])) {
 
 $controlador = new ControladorSesion();
 
-// Obtener todos los anuncios para mostrarlos en un dropdown
+// Obtiene todos los anuncios para mostrarlos en un dropdown
 $anuncios = $controlador->obtenerAnuncios();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["eliminar_anuncio"])) {

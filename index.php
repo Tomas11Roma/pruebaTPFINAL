@@ -5,7 +5,7 @@ require_once 'clases/ControladorSesion.php';
 
 $controlador = new ControladorSesion();
 
-// Verificar si se ha enviado un filtro de vigencia
+// Verifica si se ha enviado un filtro de vigencia
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["vigencia"])) {
     $vigenciaSeleccionada = $_POST["vigencia"];
     if ($vigenciaSeleccionada === "all") {
@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["vigencia"])) {
     $anuncios = $controlador->obtenerAnuncios();
 }
 
-// Verificar si se ha solicitado un orden específico
+// Verifica si se ha solicitado un orden específico
 if (isset($_POST["ordenar_reciente"])) {
     $anuncios = $controlador->obtenerAnuncios("reciente");
 } elseif (isset($_POST["ordenar_antiguo"])) {
